@@ -1,9 +1,10 @@
 import React from 'react'
 import Header from './components/Header/Header'
-import './App.css'
 import { createTheme, CssBaseline, PaletteMode, ThemeProvider } from '@mui/material';
-import { amber, deepOrange, grey } from '@mui/material/colors';
+import { amber, grey } from '@mui/material/colors';
 import ColorModeContext from './utils/Context';
+import CurrencyConverter from './components/CurrencyConverter/CurrencyConverter';
+import { AppStyles } from './AppStyles';
 
 const getDesignTokens = (mode: PaletteMode) => ({
   palette: {
@@ -12,22 +13,22 @@ const getDesignTokens = (mode: PaletteMode) => ({
       ? {
           // palette values for light mode
           primary: amber,
-          divider: amber[200],
+          divider: grey[700],
           text: {
-            primary: 'grey[900]',
+            primary: grey[900],
             secondary: grey[800],
           },
         }
       : {
           // palette values for dark mode
-          primary: deepOrange,
-          divider: deepOrange[700],
+          primary: grey,
+          divider: grey[300],
           background: {
-            default: deepOrange[900],
-            paper: deepOrange[900],
+            default: grey[900],
+            paper: grey[900],
           },
           text: {
-            primary: '#fff',
+            primary: grey[50],
             secondary: grey[500],
           },
         }),
@@ -54,6 +55,9 @@ function App() {
         <CssBaseline />
         <React.Fragment>
           <Header />
+          <AppStyles.Container>
+            <CurrencyConverter/>
+          </AppStyles.Container>
         </React.Fragment>
       </ThemeProvider>
     </ColorModeContext.Provider>
