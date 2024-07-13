@@ -5,6 +5,8 @@ import { styled } from "@mui/material/styles";
 export const CurrencyConverterStyles = {
 	Box: styled(Box)(({ theme }) => ({
 		textAlign: 'center',
+		display: 'flex',
+		flexDirection: 'column',
 	})),
 	Header: styled(Typography)(( {theme} ) => ({
 		marginBottom: theme.spacing(3)
