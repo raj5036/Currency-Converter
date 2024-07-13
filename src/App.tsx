@@ -1,8 +1,7 @@
 import React from 'react'
 import Header from './components/Header/Header'
 import './App.css'
-import { ThemeProvider } from '@emotion/react'
-import { createTheme, CssBaseline, PaletteMode } from '@mui/material';
+import { createTheme, CssBaseline, PaletteMode, ThemeProvider } from '@mui/material';
 import { amber, deepOrange, grey } from '@mui/material/colors';
 import ColorModeContext from './utils/Context';
 
@@ -15,7 +14,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
           primary: amber,
           divider: amber[200],
           text: {
-            primary: grey[900],
+            primary: 'grey[900]',
             secondary: grey[800],
           },
         }
@@ -51,12 +50,12 @@ function App() {
 
   return (
     <ColorModeContext.Provider value={colorMode}>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <React.Fragment>
-        <Header />
-      </React.Fragment>
-    </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <React.Fragment>
+          <Header />
+        </React.Fragment>
+      </ThemeProvider>
     </ColorModeContext.Provider>
   )
 }
