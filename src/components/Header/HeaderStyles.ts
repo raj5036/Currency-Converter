@@ -8,7 +8,7 @@ export const HeaderStyles = {
 			display: 'flex',
 			justifyContent: 'space-between',
 			alignItems: 'center',
-			height: '4rem',
+			height: theme.spacing(8),
 			position: 'fixed',
 			top: 0,
 			left: 0,
