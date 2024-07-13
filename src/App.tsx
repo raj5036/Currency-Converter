@@ -5,6 +5,8 @@ import ColorModeContext from './utils/Context';
 import CurrencyConverter from './components/CurrencyConverter/CurrencyConverter';
 import { AppStyles } from './AppStyles';
 import Theme from './utils/Theme';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 
 function App() {
@@ -27,9 +29,11 @@ function App() {
         <CssBaseline />
         <React.Fragment>
           <Header />
-          <AppStyles.Container>
-            <CurrencyConverter/>
-          </AppStyles.Container>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <AppStyles.Container>
+              <CurrencyConverter/>
+            </AppStyles.Container>
+          </LocalizationProvider>
         </React.Fragment>
       </ThemeProvider>
     </ColorModeContext.Provider>

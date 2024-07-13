@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { Button, MenuItem, Select, Stack, TextField, useTheme } from "@mui/material";
+import { Button, MenuItem, Select, Stack, TextField, Typography, useTheme } from "@mui/material";
 import { CurrencyConverterStyles } from "./CurrencyConverterStyles";
 import { getSupportedCurrencies } from "../../utils/ApiClient";
 import { Loader } from "../Loader/Loader";
+import { DatePicker } from "@mui/x-date-pickers";
 
 const CurrencyConverter = () => {
 	const [amount, setAmount] = useState<number>(0)
 	const [currencies, setCurrencies] = useState<string[]>([])
-	const [selectedCurrency, setSelectedCurrency] = useState<string>('')
+	const [sourceCurrency, setSourceCurrency] = useState<string>('USD')
+	const [targetCurrency, setTargetCurrency] = useState<string>('USD')
 	const [loading, setLoading] = useState<boolean>(false)
 
 	useEffect(() => {
@@ -46,21 +48,42 @@ const CurrencyConverter = () => {
 					onChange={(e) => setAmount(Number(e.target.value))}
 				></TextField>
 
+				<Typography variant="caption">Source Currency</Typography>
 				{loading ? (
 					<Loader />
 				) : (
 					<Select
 						labelId="demo-simple-select-label"
 						id="demo-simple-select"
-						value={selectedCurrency}
+						value={sourceCurrency}
 						label="Currency"
 						size="small"
-						onChange={(e) => setSelectedCurrency(e.target.value)}
+						onChange={(e) => setSourceCurrency(e.target.value)}
 					>
-					{currencies.map((currency) => (
-						<MenuItem key={currency} value={currency}>{currency}</MenuItem>
-					))}
-				</Select>
+						{currencies.map((currency) => (
+							<MenuItem key={currency} value={currency}>{currency}</MenuItem>
+						))}
+					</Select>
+				)}
+				
+				<DatePicker />
+
+				<Typography variant="caption">Target Currency</Typography>
+				{loading ? (
+					<Loader />
+				) : (
+					<Select
+						labelId="demo-simple-select-label"
+						id="demo-simple-select"
+						value={targetCurrency}
+						label="Currency"
+						size="small"
+						onChange={(e) => setTargetCurrency(e.target.value)}
+					>
+						{currencies.map((currency) => (
+							<MenuItem key={currency} value={currency}>{currency}</MenuItem>
+						))}
+					</Select>
 				)}
 			</Stack>
 			<Button 
