@@ -4,13 +4,13 @@ import { styled } from "@mui/material/styles";
 
 export const CurrencyConverterStyles = {
 	Box: styled(Box)(({ theme }) => ({
-		textAlign: 'center',
+		// textAlign: 'center',
 		display: 'flex',
 		flexDirection: 'column',
 		padding: theme.spacing(2),
 	})),
 	Label: styled(Typography)(( {theme} ) => ({
-		marginBottom: theme.spacing(1)
+		marginBottom: theme.spacing(1),
 	})),
 	Select: styled(Select)(({ theme }) => ({
 		marginTop: theme.spacing(0),
@@ -20,7 +20,8 @@ export const CurrencyConverterStyles = {
 		textAlign: 'center'
 	})),
 	SubmitButton: styled(Button)(({ theme }) => ({
-		margin: `${theme.spacing(3)} auto`,
+		marginTop: theme.spacing(3),
+		marginBottom: theme.spacing(3),
 		textAlign: 'center',
 		height: theme.spacing(6),
 		width: '20%',

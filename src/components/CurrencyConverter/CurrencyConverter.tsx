@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { CircularProgress, MenuItem, Select, Stack, TextField, Typography, useTheme } from "@mui/material";
+import { Box, CircularProgress, MenuItem, Select, Stack, TextField, Tooltip, Typography, useTheme } from "@mui/material";
 import { CurrencyConverterStyles } from "./CurrencyConverterStyles";
 import { getHistoricalRates, getSupportedCurrencies } from "../../utils/ApiClient";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -17,7 +17,7 @@ const CurrencyConverter = () => {
 	const [convertedAmount, setConvertedAmount] = useState<number>(0)
 	const [convertedAmountLoading, setConvertedAmountLoading] = useState<boolean>(false)
 
-	const responseViewRef = useRef<null | HTMLDivElement>(null)
+	const responseViewRef = useRef<null | HTMLHeadingElement>(null)
 
 	useEffect(() => {
 		setLoading(true)
@@ -69,9 +69,9 @@ const CurrencyConverter = () => {
 	return (
 		<CurrencyConverterStyles.Box>
 			<CurrencyConverterStyles.Label variant="body1">
-				Please put an amount to continue..
+				Please put an amount to continue...
 			</CurrencyConverterStyles.Label>
-			<Stack direction="column" spacing={4} sx={{marginBottom: theme.spacing(3)}}>
+			<Stack direction="row" spacing={4} marginBottom={theme.spacing(5)}>
 				<TextField 
 					variant="outlined" 
 					size="small"
@@ -80,32 +80,26 @@ const CurrencyConverter = () => {
 					type="number"
 					required
 					onChange={(e) => setAmount(Number(e.target.value))}
-					sx={{
-						textAlign: 'center'
-					}}
 				></TextField>
-
-				<CurrencyConverterStyles.Label variant="body1">Source Currency</CurrencyConverterStyles.Label>
 				{loading ? (
 					<CircularProgress color="info"/>
 				) : (
-					<Select
-						labelId="demo-simple-select-label"
-						id="demo-simple-select"
-						value={sourceCurrency}
-						label="Currency"
-						size="small"
-						onChange={(e) => setSourceCurrency(e.target.value)}
-						sx={{
-							marginTop: 0
-						}}
-					>
-						{currencies.map((currency) => (
-							<MenuItem key={currency} value={currency}>{currency}</MenuItem>
-						))}
-					</Select>
+					<Tooltip title="Source Currency" placement="right">
+						<Select
+							labelId="source-currency"
+							id="source-currency"
+							value={sourceCurrency}
+							size="small"
+							onChange={(e) => setSourceCurrency(e.target.value)}
+						>
+							{currencies.map((currency) => (
+								<MenuItem key={currency} value={currency}>{currency}</MenuItem>
+							))}
+						</Select>
+					</Tooltip>
 				)}
-				
+			</Stack>
+			<Stack direction="column" spacing={4} sx={{marginBottom: theme.spacing(3)}}>
 				<DatePicker 
 					label="Date"
 					value={dayjs(date)}
@@ -114,27 +108,30 @@ const CurrencyConverter = () => {
 						const date = e.toDate()
 						setDate(date)
 					}}
+					sx={{width: theme.spacing(40)}}
 				/>
 
-				<CurrencyConverterStyles.Label variant="body1">
-					Target Currency
-				</CurrencyConverterStyles.Label>
-				{loading ? (
-					<CircularProgress color="info"/>
-				) : (
-					<Select
-						labelId="demo-simple-select-label"
-						id="demo-simple-select"
-						value={targetCurrency}
-						label="Currency"
-						size="small"
-						onChange={(e) => setTargetCurrency(e.target.value)}
-					>
-						{currencies.map((currency) => (
-							<MenuItem key={currency} value={currency}>{currency}</MenuItem>
-						))}
-					</Select>
-				)}
+				<Box component={"div"}>
+					<CurrencyConverterStyles.Label variant="body1">
+						Target Currency
+					</CurrencyConverterStyles.Label>
+					{loading ? (
+						<CircularProgress color="info"/>
+					) : (
+						<Select
+							labelId="target-currency"
+							id="target-currency"
+							value={targetCurrency}
+							size="small"
+							onChange={(e) => setTargetCurrency(e.target.value)}
+							sx={{width: theme.spacing(40)}}
+						>
+							{currencies.map((currency) => (
+								<MenuItem key={currency} value={currency}>{currency}</MenuItem>
+							))}
+						</Select>
+					)}
+				</Box>
 			</Stack>
 			<CurrencyConverterStyles.SubmitButton 
 				variant="contained" 
@@ -144,19 +141,19 @@ const CurrencyConverter = () => {
 				Convert
 			</CurrencyConverterStyles.SubmitButton>
 
-			<CurrencyConverterStyles.ResponseBox component={"div"} ref={responseViewRef}>
+			<CurrencyConverterStyles.ResponseBox component={"div"}>
 				{convertedAmountLoading ? (
 					<CircularProgress color="success"/>
 				) : convertedAmount !== 0 ? (
 					<>
 						<Stack direction="row" spacing={1} justifyContent={"center"} alignItems={"center"}>
-							<Typography variant="body1">Converted amount for Date</Typography>
+							<Typography variant="body1">Currency converted for Date</Typography>
 							<Typography variant="h6" color={theme.palette.text.success}>
 									{date.toLocaleDateString()}
 							</Typography>
 						</Stack>
 						<CurrencyConverterStyles.ResponseDivider variant="middle"/>
-						<Typography variant="h2" color={theme.palette.text.success}>
+						<Typography variant="h2" color={theme.palette.text.success} component={"h2"} ref={responseViewRef}>
 							{DecimalToTwoPlaces(Number(convertedAmount))} {targetCurrency}
 						</Typography>
 					</>
