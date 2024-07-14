@@ -13,7 +13,6 @@ const CurrencyConverter = () => {
 	const [targetCurrency, setTargetCurrency] = useState<string>('USD')
 	const [loading, setLoading] = useState<boolean>(false)
 	const [date, setDate] = useState<Date>(new Date())
-	const [conversionDone, setConversionDone] = useState<boolean>(false)
 	const [convertedAmount, setConvertedAmount] = useState<number>(0)
 
 	useEffect(() => {
@@ -33,18 +32,20 @@ const CurrencyConverter = () => {
 			toast.error('Please fill all the fields')
 			return
 		}
-		console.log('amount', amount)
+
+		if (sourceCurrency === targetCurrency) {
+			toast.error('Source and Target currency cannot be same')
+			return
+		}
 
 		getHistoricalRates(sourceCurrency, date, amount)
 			.then((response) => {
-				// setConvertedAmount(response.conversion_result)
 				console.log('response', response)
+				setConvertedAmount(response.conversion_amounts[targetCurrency])
 			})
 			.catch((error) => {
 				console.log('error', error)
 			})
-
-		setConversionDone(true)
 	}
 
 	const theme = useTheme();
@@ -117,10 +118,10 @@ const CurrencyConverter = () => {
 				onClick={onSubmitClick}
 			>Convert</Button>
 
-			{conversionDone && (
+			{convertedAmount !== 0 && (
 				<Box>
 					<Typography variant="body1">
-						29827
+						{convertedAmount}
 					</Typography>
 				</Box>
 			)}
