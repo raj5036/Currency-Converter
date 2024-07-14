@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Box, Button, MenuItem, Select, Stack, TextField, Typography, useTheme } from "@mui/material";
+import { Button, CircularProgress, MenuItem, Select, Stack, TextField, Typography, useTheme } from "@mui/material";
 import { CurrencyConverterStyles } from "./CurrencyConverterStyles";
 import { getHistoricalRates, getSupportedCurrencies } from "../../utils/ApiClient";
-import { Loader } from "../Loader/Loader";
 import { DatePicker } from "@mui/x-date-pickers";
 import { toast } from "react-toastify";
 
@@ -14,6 +13,7 @@ const CurrencyConverter = () => {
 	const [loading, setLoading] = useState<boolean>(false)
 	const [date, setDate] = useState<Date>(new Date())
 	const [convertedAmount, setConvertedAmount] = useState<number>(0)
+	const [convertedAmountLoading, setConvertedAmountLoading] = useState<boolean>(false)
 
 	useEffect(() => {
 		setLoading(true)
@@ -38,6 +38,7 @@ const CurrencyConverter = () => {
 			return
 		}
 
+		setConvertedAmountLoading(true)
 		getHistoricalRates(sourceCurrency, date, amount)
 			.then((response) => {
 				console.log('response', response)
@@ -46,6 +47,7 @@ const CurrencyConverter = () => {
 			.catch((error) => {
 				console.log('error', error)
 			})
+			.finally(() => setConvertedAmountLoading(false))
 	}
 
 	const theme = useTheme();
@@ -69,7 +71,7 @@ const CurrencyConverter = () => {
 
 				<Typography variant="caption">Source Currency</Typography>
 				{loading ? (
-					<Loader />
+					<CircularProgress color="info"/>
 				) : (
 					<Select
 						labelId="demo-simple-select-label"
@@ -96,7 +98,7 @@ const CurrencyConverter = () => {
 
 				<Typography variant="caption">Target Currency</Typography>
 				{loading ? (
-					<Loader />
+					<CircularProgress color="info"/>
 				) : (
 					<Select
 						labelId="demo-simple-select-label"
@@ -118,13 +120,16 @@ const CurrencyConverter = () => {
 				onClick={onSubmitClick}
 			>Convert</Button>
 
-			{convertedAmount !== 0 && (
-				<Box>
-					<Typography variant="body1">
+			<CurrencyConverterStyles.ResponseBox>
+				{convertedAmountLoading ? (
+					<CircularProgress color="success"/>
+				) : convertedAmount !== 0 ? (
+					<Typography variant="h2" color={theme.palette.text.primary}>
 						{convertedAmount}
 					</Typography>
-				</Box>
-			)}
+					
+				): null}
+			</CurrencyConverterStyles.ResponseBox>
 
 		</CurrencyConverterStyles.Box>
 	);

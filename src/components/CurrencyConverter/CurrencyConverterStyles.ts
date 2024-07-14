@@ -10,5 +10,9 @@ export const CurrencyConverterStyles = {
 	})),
 	Header: styled(Typography)(( {theme} ) => ({
 		marginBottom: theme.spacing(3)
+	})),
+	ResponseBox: styled(Box)(({ theme }) => ({
+		marginTop: theme.spacing(3),
+		textAlign: 'center'
 	}))
 }
