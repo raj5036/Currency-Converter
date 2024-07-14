@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, CircularProgress, MenuItem, Select, Stack, TextField, Typography, useTheme } from "@mui/material";
+import { CircularProgress, MenuItem, Select, Stack, TextField, Typography, useTheme } from "@mui/material";
 import { CurrencyConverterStyles } from "./CurrencyConverterStyles";
 import { getHistoricalRates, getSupportedCurrencies } from "../../utils/ApiClient";
 import { DatePicker } from "@mui/x-date-pickers";

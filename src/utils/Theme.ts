@@ -1,6 +1,12 @@
 import { PaletteMode } from "@mui/material";
 import { amber, green, grey } from "@mui/material/colors";
 
+declare module "@mui/material/styles" {
+	interface TypeText {
+		success: string
+	}
+  }
+
 const Theme = (mode: PaletteMode) => ({
 	palette: {
 		mode,
