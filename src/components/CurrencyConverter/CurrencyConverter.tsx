@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { CircularProgress, MenuItem, Select, Stack, TextField, Typography, useTheme } from "@mui/material";
 import { CurrencyConverterStyles } from "./CurrencyConverterStyles";
 import { getHistoricalRates, getSupportedCurrencies } from "../../utils/ApiClient";
 import { DatePicker } from "@mui/x-date-pickers";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
+import { DecimalToTwoPlaces } from "../../utils/Functions";
 
 const CurrencyConverter = () => {
 	const [amount, setAmount] = useState<number>(0)
@@ -15,6 +16,8 @@ const CurrencyConverter = () => {
 	const [date, setDate] = useState<Date>(new Date())
 	const [convertedAmount, setConvertedAmount] = useState<number>(0)
 	const [convertedAmountLoading, setConvertedAmountLoading] = useState<boolean>(false)
+
+	const responseViewRef = useRef<null | HTMLDivElement>(null)
 
 	useEffect(() => {
 		setLoading(true)
@@ -42,17 +45,26 @@ const CurrencyConverter = () => {
 		setConvertedAmountLoading(true)
 		getHistoricalRates(sourceCurrency, date, amount)
 			.then((response) => {
-				console.log('response', response)
+				if (!response.conversion_amounts[targetCurrency]) {
+					toast.error('Information for this currency on the selected Date is not available')
+					setConvertedAmountLoading(false)
+					return
+				}
+
 				setConvertedAmount(response.conversion_amounts[targetCurrency])
 			})
 			.catch((error) => {
 				console.log('error', error)
 			})
-			.finally(() => setConvertedAmountLoading(false))
+			.finally(() => {
+				setConvertedAmountLoading(false)
+				if (responseViewRef.current) {
+					responseViewRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' })
+				}
+			})
 	}
 
 	const theme = useTheme();
-	console.log('themeConverter', theme)
 
 	return (
 		<CurrencyConverterStyles.Box>
@@ -127,13 +139,22 @@ const CurrencyConverter = () => {
 				Convert
 			</CurrencyConverterStyles.SubmitButton>
 
-			<CurrencyConverterStyles.ResponseBox>
+			<CurrencyConverterStyles.ResponseBox component={"div"} ref={responseViewRef}>
 				{convertedAmountLoading ? (
 					<CircularProgress color="success"/>
 				) : convertedAmount !== 0 ? (
-					<Typography variant="h2" color={theme.palette.text.success}>
-						{convertedAmount}
-					</Typography>
+					<>
+						<Stack direction="row" spacing={1} justifyContent={"center"} alignItems={"center"}>
+							<Typography variant="body1">Converted amount for Date</Typography>
+							<Typography variant="h6" color={theme.palette.text.success}>
+									{date.toLocaleDateString()}
+							</Typography>
+						</Stack>
+						<CurrencyConverterStyles.ResponseDivider variant="middle"/>
+						<Typography variant="h2" color={theme.palette.text.success}>
+							{DecimalToTwoPlaces(Number(convertedAmount))} {targetCurrency}
+						</Typography>
+					</>
 					
 				): null}
 			</CurrencyConverterStyles.ResponseBox>

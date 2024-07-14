@@ -34,8 +34,6 @@ export const getHistoricalRates = (sourceCurrency: string, date: Date, amount: n
 	const month = date.getMonth() + 1
 	const year = date.getFullYear()
 
-	console.log(day, month, year)
-
 	return Promise.resolve(
 		axios.get(`https://v6.exchangerate-api.com/v6/${API_KEY}/history/${sourceCurrency}/${year}/${month}/${day}/${amount}`)
 	)

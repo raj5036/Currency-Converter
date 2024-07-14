@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Divider, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 export const CurrencyConverterStyles = {
@@ -23,4 +23,8 @@ export const CurrencyConverterStyles = {
 		width: '20%',
 		fontSize: theme.typography.body1.fontSize
 	})),
+	ResponseDivider: styled(Divider)(({ theme }) => ({
+		margin: `0 auto ${theme.spacing(3)}`,
+		width: theme.spacing(40),
+	}))
 }
