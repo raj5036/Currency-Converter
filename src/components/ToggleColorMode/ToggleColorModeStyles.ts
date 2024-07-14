@@ -4,10 +4,11 @@ import { styled } from '@mui/material/styles';
 
 export const ToggleColorModeStyles = {
 	Box: styled(Box)(({ theme }) => ({
-		bgcolor: theme.palette.background.default,
 		color: theme.palette.text.primary,
+		backgroundColor: theme.palette.background.default,
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
+		marginRight: theme.spacing(3),
 	}))
 }

@@ -4,6 +4,7 @@ import { CurrencyConverterStyles } from "./CurrencyConverterStyles";
 import { getHistoricalRates, getSupportedCurrencies } from "../../utils/ApiClient";
 import { DatePicker } from "@mui/x-date-pickers";
 import { toast } from "react-toastify";
+import dayjs from "dayjs";
 
 const CurrencyConverter = () => {
 	const [amount, setAmount] = useState<number>(0)
@@ -67,6 +68,9 @@ const CurrencyConverter = () => {
 					type="number"
 					required
 					onChange={(e) => setAmount(Number(e.target.value))}
+					sx={{
+						textAlign: 'center'
+					}}
 				></TextField>
 
 				<Typography variant="caption">Source Currency</Typography>
@@ -89,6 +93,7 @@ const CurrencyConverter = () => {
 				
 				<DatePicker 
 					label="Date"
+					value={dayjs(date)}
 					onChange={(e) => {
 						if (!e) return
 						const date = e.toDate()
@@ -114,17 +119,19 @@ const CurrencyConverter = () => {
 					</Select>
 				)}
 			</Stack>
-			<Button 
+			<CurrencyConverterStyles.SubmitButton 
 				variant="contained" 
 				color="info"
 				onClick={onSubmitClick}
-			>Convert</Button>
+			>
+				Convert
+			</CurrencyConverterStyles.SubmitButton>
 
 			<CurrencyConverterStyles.ResponseBox>
 				{convertedAmountLoading ? (
 					<CircularProgress color="success"/>
 				) : convertedAmount !== 0 ? (
-					<Typography variant="h2" color={theme.palette.text.primary}>
+					<Typography variant="h2" color={theme.palette.text.success}>
 						{convertedAmount}
 					</Typography>
 					

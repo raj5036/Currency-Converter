@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 export const CurrencyConverterStyles = {
@@ -7,6 +7,7 @@ export const CurrencyConverterStyles = {
 		textAlign: 'center',
 		display: 'flex',
 		flexDirection: 'column',
+		padding: theme.spacing(2),
 	})),
 	Header: styled(Typography)(( {theme} ) => ({
 		marginBottom: theme.spacing(3)
@@ -14,5 +15,12 @@ export const CurrencyConverterStyles = {
 	ResponseBox: styled(Box)(({ theme }) => ({
 		marginTop: theme.spacing(3),
 		textAlign: 'center'
-	}))
+	})),
+	SubmitButton: styled(Button)(({ theme }) => ({
+		margin: `${theme.spacing(3)} auto`,
+		textAlign: 'center',
+		height: theme.spacing(6),
+		width: '20%',
+		fontSize: theme.typography.body1.fontSize
+	})),
 }

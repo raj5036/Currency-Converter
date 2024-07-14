@@ -1,5 +1,5 @@
 import { PaletteMode } from "@mui/material";
-import { amber, grey } from "@mui/material/colors";
+import { amber, green, grey } from "@mui/material/colors";
 
 const Theme = (mode: PaletteMode) => ({
 	palette: {
@@ -12,6 +12,7 @@ const Theme = (mode: PaletteMode) => ({
 			text: {
 				primary: grey[900],
 				secondary: grey[800],
+				success: green['A700'],
 			},
 		}
 		: {
@@ -25,6 +26,7 @@ const Theme = (mode: PaletteMode) => ({
 			text: {
 				primary: grey[50],
 				secondary: grey[500],
+				success: green['A400'],
 			},
 		}),
 	},

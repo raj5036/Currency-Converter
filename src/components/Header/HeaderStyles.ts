@@ -3,7 +3,6 @@ import { styled } from "@mui/material/styles";
 
 export const HeaderStyles = {
 	Box: styled(Box)(({ theme }) => {
-		console.log('theme', theme)
 		return {
 			display: 'flex',
 			justifyContent: 'space-between',
