@@ -5,7 +5,7 @@ import { getHistoricalRates, getSupportedCurrencies } from "../../utils/ApiClien
 import { DatePicker } from "@mui/x-date-pickers";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
-import { DecimalToTwoPlaces } from "../../utils/Functions";
+import { DecimalToTwoPlaces, isDateInFuture, isYearBefore1990 } from "../../utils/Functions";
 
 const CurrencyConverter = () => {
 	const [amount, setAmount] = useState<number>(0)
@@ -32,6 +32,8 @@ const CurrencyConverter = () => {
 	}, [])
 
 	const onSubmitClick = () => {
+		setConvertedAmount(0)
+		
 		if (!amount) {
 			toast.error('Please fill all the fields')
 			return
@@ -39,6 +41,16 @@ const CurrencyConverter = () => {
 
 		if (sourceCurrency === targetCurrency) {
 			toast.error('Source and Target currency cannot be same')
+			return
+		}
+
+		if (isYearBefore1990(date)) {
+			toast.error('Please select a date after 1990')
+			return
+		}
+
+		if (isDateInFuture(date)) {
+			toast.error('Date cannot be in the future')
 			return
 		}
 
