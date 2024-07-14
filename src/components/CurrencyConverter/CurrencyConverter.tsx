@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Box, Button, MenuItem, Select, Stack, TextField, Typography, useTheme } from "@mui/material";
 import { CurrencyConverterStyles } from "./CurrencyConverterStyles";
-import { getSupportedCurrencies } from "../../utils/ApiClient";
+import { getHistoricalRates, getSupportedCurrencies } from "../../utils/ApiClient";
 import { Loader } from "../Loader/Loader";
 import { DatePicker } from "@mui/x-date-pickers";
+import { toast } from "react-toastify";
 
 const CurrencyConverter = () => {
 	const [amount, setAmount] = useState<number>(0)
@@ -13,6 +14,7 @@ const CurrencyConverter = () => {
 	const [loading, setLoading] = useState<boolean>(false)
 	const [date, setDate] = useState<Date>(new Date())
 	const [conversionDone, setConversionDone] = useState<boolean>(false)
+	const [convertedAmount, setConvertedAmount] = useState<number>(0)
 
 	useEffect(() => {
 		setLoading(true)
@@ -27,9 +29,21 @@ const CurrencyConverter = () => {
 	}, [])
 
 	const onSubmitClick = () => {
+		if (!amount) {
+			toast.error('Please fill all the fields')
+			return
+		}
 		console.log('amount', amount)
-		console.log('currencies', currencies)
-		console.log(date)
+
+		getHistoricalRates(sourceCurrency, date, amount)
+			.then((response) => {
+				// setConvertedAmount(response.conversion_result)
+				console.log('response', response)
+			})
+			.catch((error) => {
+				console.log('error', error)
+			})
+
 		setConversionDone(true)
 	}
 

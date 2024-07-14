@@ -7,7 +7,8 @@ import { AppStyles } from './AppStyles';
 import Theme from './utils/Theme';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-// import { enUS } from 'date-fns/locale'; 
+import { Bounce, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -35,6 +36,17 @@ function App() {
               <CurrencyConverter/>
             </AppStyles.Container>
           </LocalizationProvider>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            pauseOnFocusLoss
+            pauseOnHover
+            theme={theme.palette.mode}
+            transition= {Bounce}
+          />
         </React.Fragment>
       </ThemeProvider>
     </ColorModeContext.Provider>

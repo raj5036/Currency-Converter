@@ -15,3 +15,34 @@ export const getSupportedCurrencies = () => {
 			return error
 		})
 }
+
+export const getConversionRates = (sourceCurrency: string, targetCurrency: string) => {
+	return Promise.resolve(
+		axios.get(`https://v6.exchangerate-api.com/v6/${API_KEY}/pair/${sourceCurrency}/${targetCurrency}`)
+	)
+		.then((response) => {
+			return response.data
+		})
+		.catch((error) => {
+			error
+		})
+}
+
+export const getHistoricalRates = (sourceCurrency: string, date: Date, amount: number) => {
+	// Get Day, Month, Year
+	const day = date.getDate()
+	const month = date.getMonth() + 1
+	const year = date.getFullYear()
+
+	console.log(day, month, year)
+
+	return Promise.resolve(
+		axios.get(`https://v6.exchangerate-api.com/v6/${API_KEY}/history/${sourceCurrency}/${year}/${month}/${day}/${amount}`)
+	)
+		.then((response) => {
+			return response.data
+		})
+		.catch((error) => {
+			error
+		})
+}
