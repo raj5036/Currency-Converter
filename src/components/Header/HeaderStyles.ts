@@ -17,5 +17,13 @@ export const HeaderStyles = {
 			backgroundColor: theme.palette.background.default,
 			zIndex: 1,
 		}
+	}),
+	AppNameContainer: styled(Box)(({ theme }) => {
+		return {
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+			marginLeft: theme.spacing(3),
+		}
 	})
 }

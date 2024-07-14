@@ -121,7 +121,7 @@ const CurrencyConverter = () => {
 			</Stack>
 			<CurrencyConverterStyles.SubmitButton 
 				variant="contained" 
-				color="info"
+				color={theme.palette.mode === 'dark' ? 'info' : 'warning'}
 				onClick={onSubmitClick}
 			>
 				Convert
