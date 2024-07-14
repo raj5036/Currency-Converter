@@ -10,5 +10,9 @@ export const ToggleColorModeStyles = {
 		justifyContent: 'center',
 		alignItems: 'center',
 		marginRight: theme.spacing(3),
+
+		[theme.breakpoints.down('sm')]: {
+			marginRight: theme.spacing(1),
+		}
 	}))
 }

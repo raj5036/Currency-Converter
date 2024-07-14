@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 export const HeaderStyles = {
@@ -24,6 +24,22 @@ export const HeaderStyles = {
 			justifyContent: 'center',
 			alignItems: 'center',
 			marginLeft: theme.spacing(3),
+
+			[theme.breakpoints.down('sm')]: {
+				marginLeft: theme.spacing(2),
+			}
 		}
-	})
+	}),
+	AppName: styled(Typography)(({ theme }) => {
+		return {
+			color: theme.palette.text.info,
+			fontSize: theme.typography.h6.fontSize,
+			marginLeft: theme.spacing(2),
+
+			[theme.breakpoints.down('sm')]: {
+				fontSize: theme.typography.body1.fontSize,
+				marginLeft: theme.spacing(1),
+			}
+		}
+	}),
 }
