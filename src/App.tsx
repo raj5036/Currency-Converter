@@ -7,6 +7,7 @@ import { AppStyles } from './AppStyles';
 import Theme from './utils/Theme';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+// import { enUS } from 'date-fns/locale'; 
 
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
         <CssBaseline />
         <React.Fragment>
           <Header />
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='en'>
             <AppStyles.Container>
               <CurrencyConverter/>
             </AppStyles.Container>

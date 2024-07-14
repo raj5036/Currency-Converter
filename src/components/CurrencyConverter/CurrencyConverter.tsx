@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, MenuItem, Select, Stack, TextField, Typography, useTheme } from "@mui/material";
+import { Box, Button, MenuItem, Select, Stack, TextField, Typography, useTheme } from "@mui/material";
 import { CurrencyConverterStyles } from "./CurrencyConverterStyles";
 import { getSupportedCurrencies } from "../../utils/ApiClient";
 import { Loader } from "../Loader/Loader";
@@ -11,6 +11,8 @@ const CurrencyConverter = () => {
 	const [sourceCurrency, setSourceCurrency] = useState<string>('USD')
 	const [targetCurrency, setTargetCurrency] = useState<string>('USD')
 	const [loading, setLoading] = useState<boolean>(false)
+	const [date, setDate] = useState<Date>(new Date())
+	const [conversionDone, setConversionDone] = useState<boolean>(false)
 
 	useEffect(() => {
 		setLoading(true)
@@ -27,6 +29,8 @@ const CurrencyConverter = () => {
 	const onSubmitClick = () => {
 		console.log('amount', amount)
 		console.log('currencies', currencies)
+		console.log(date)
+		setConversionDone(true)
 	}
 
 	const theme = useTheme();
@@ -66,7 +70,14 @@ const CurrencyConverter = () => {
 					</Select>
 				)}
 				
-				<DatePicker />
+				<DatePicker 
+					label="Date"
+					onChange={(e) => {
+						if (!e) return
+						const date = e.toDate()
+						setDate(date)
+					}}
+				/>
 
 				<Typography variant="caption">Target Currency</Typography>
 				{loading ? (
@@ -91,6 +102,15 @@ const CurrencyConverter = () => {
 				color="info"
 				onClick={onSubmitClick}
 			>Convert</Button>
+
+			{conversionDone && (
+				<Box>
+					<Typography variant="body1">
+						29827
+					</Typography>
+				</Box>
+			)}
+
 		</CurrencyConverterStyles.Box>
 	);
 };
