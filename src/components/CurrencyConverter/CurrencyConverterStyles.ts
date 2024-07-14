@@ -25,7 +25,13 @@ export const CurrencyConverterStyles = {
 		textAlign: 'center',
 		height: theme.spacing(6),
 		width: '20%',
-		fontSize: theme.typography.body1.fontSize
+		fontSize: theme.typography.body1.fontSize,
+
+		[theme.breakpoints.down('sm')]: {
+			fontSize: theme.typography.body2.fontSize,
+			fontWeight: theme.typography.fontWeightBold,
+			width: '40%',
+		}
 	})),
 	ResponseDivider: styled(Divider)(({ theme }) => ({
 		margin: `0 auto ${theme.spacing(3)}`,
