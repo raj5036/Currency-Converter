@@ -10,7 +10,8 @@ export const CurrencyConverterStyles = {
 		padding: theme.spacing(2),
 	})),
 	Label: styled(Typography)(( {theme} ) => ({
-		marginBottom: theme.spacing(1),
+		marginBottom: theme.spacing(2),
+		color: theme.palette.text.info,
 	})),
 	Select: styled(Select)(({ theme }) => ({
 		marginTop: theme.spacing(0),

@@ -45,7 +45,7 @@ const CurrencyConverter = () => {
 		}
 
 		if (isYearBefore1990(date)) {
-			toast.error('Please select a date after 1990')
+			toast.error('Please select a date after year 1990')
 			return
 		}
 

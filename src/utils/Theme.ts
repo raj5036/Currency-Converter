@@ -3,7 +3,8 @@ import { amber, green, grey } from "@mui/material/colors";
 
 declare module "@mui/material/styles" {
 	interface TypeText {
-		success: string
+		success: string,
+		info: string,
 	}
   }
 
@@ -19,6 +20,7 @@ const Theme = (mode: PaletteMode) => ({
 				primary: grey[900],
 				secondary: grey[800],
 				success: green['A700'],
+				info: '#ed6c02',
 			},
 		}
 		: {
@@ -33,6 +35,7 @@ const Theme = (mode: PaletteMode) => ({
 				primary: grey[50],
 				secondary: grey[500],
 				success: green['A400'],
+				info: '#29b6f6',
 			},
 		}),
 	},
