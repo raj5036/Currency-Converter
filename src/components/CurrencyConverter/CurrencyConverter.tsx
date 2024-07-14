@@ -26,7 +26,7 @@ const CurrencyConverter = () => {
 				setCurrencies(Object.keys(response.conversion_rates))
 			})
 			.catch((error) => {
-				console.log('error', error)
+				console.log('error fetching supported currencies', error)
 			})
 			.finally(() => setLoading(false))
 	}, [])
@@ -54,7 +54,7 @@ const CurrencyConverter = () => {
 				setConvertedAmount(response.conversion_amounts[targetCurrency])
 			})
 			.catch((error) => {
-				console.log('error', error)
+				console.log('error fetching historical rates', error)
 			})
 			.finally(() => {
 				setConvertedAmountLoading(false)
@@ -68,9 +68,9 @@ const CurrencyConverter = () => {
 
 	return (
 		<CurrencyConverterStyles.Box>
-			<CurrencyConverterStyles.Header variant="h5">
+			<CurrencyConverterStyles.Label variant="body1">
 				Please put an amount to continue..
-			</CurrencyConverterStyles.Header>
+			</CurrencyConverterStyles.Label>
 			<Stack direction="column" spacing={4} sx={{marginBottom: theme.spacing(3)}}>
 				<TextField 
 					variant="outlined" 
@@ -85,7 +85,7 @@ const CurrencyConverter = () => {
 					}}
 				></TextField>
 
-				<Typography variant="caption">Source Currency</Typography>
+				<CurrencyConverterStyles.Label variant="body1">Source Currency</CurrencyConverterStyles.Label>
 				{loading ? (
 					<CircularProgress color="info"/>
 				) : (
@@ -96,6 +96,9 @@ const CurrencyConverter = () => {
 						label="Currency"
 						size="small"
 						onChange={(e) => setSourceCurrency(e.target.value)}
+						sx={{
+							marginTop: 0
+						}}
 					>
 						{currencies.map((currency) => (
 							<MenuItem key={currency} value={currency}>{currency}</MenuItem>
@@ -113,7 +116,9 @@ const CurrencyConverter = () => {
 					}}
 				/>
 
-				<Typography variant="caption">Target Currency</Typography>
+				<CurrencyConverterStyles.Label variant="body1">
+					Target Currency
+				</CurrencyConverterStyles.Label>
 				{loading ? (
 					<CircularProgress color="info"/>
 				) : (
