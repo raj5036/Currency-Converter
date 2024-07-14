@@ -71,7 +71,13 @@ const CurrencyConverter = () => {
 			<CurrencyConverterStyles.Label variant="body1">
 				Please put an amount to continue...
 			</CurrencyConverterStyles.Label>
-			<Stack direction="row" spacing={4} marginBottom={theme.spacing(5)}>
+			<Stack 
+				direction="row" 
+				justifyContent={"center"}
+				alignItems={"center"}
+				spacing={4} 
+				marginBottom={theme.spacing(5)} 
+			>
 				<TextField 
 					variant="outlined" 
 					size="small"
@@ -99,7 +105,7 @@ const CurrencyConverter = () => {
 					</Tooltip>
 				)}
 			</Stack>
-			<Stack direction="column" spacing={4} sx={{marginBottom: theme.spacing(3)}}>
+			<Stack direction="column" spacing={4} sx={{marginBottom: theme.spacing(3)}} alignItems={"center"}>
 				<DatePicker 
 					label="Date"
 					value={dayjs(date)}
